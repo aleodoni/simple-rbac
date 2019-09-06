@@ -28,7 +28,7 @@ class User extends Model {
   static associate(models) {
     this.belongsToMany(models.Role, {
       through: 'user_roles',
-      foreignKey: 'id_role',
+      foreignKey: 'role_id',
     });
   }
 
