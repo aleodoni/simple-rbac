@@ -1,0 +1,10 @@
+version: '2.0'
+services:
+  db-rbac:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: rbac
+    ports:
+      - '5436:5432'
