@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
+import Role from '../models/Role';
 import SessionValidator from '../validators/SessionValidator';
 import authConfig from '../../config/auth';
 
@@ -14,7 +15,16 @@ class SessionController {
 
     const { password, username } = req.body;
 
-    const user = await User.findOne({ where: { username } });
+    const user = await User.findOne({
+      where: { username },
+      include: [
+        {
+          model: Role,
+          attributes: ['name', 'desc'],
+          through: { attributes: [] },
+        },
+      ],
+    });
 
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
@@ -24,7 +34,7 @@ class SessionController {
       return res.status(401).json({ error: 'Password does not match' });
     }
 
-    const { id, email } = user;
+    const { id, email, Roles: roles } = user;
 
     return res.json({
       user: {
@@ -32,7 +42,7 @@ class SessionController {
         username,
         email,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, roles }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
