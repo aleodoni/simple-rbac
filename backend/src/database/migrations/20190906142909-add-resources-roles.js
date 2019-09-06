@@ -21,6 +21,22 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
+      can_add: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+      },
+      can_edit: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+      },
+      can_delete: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+      },
+      can_view: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

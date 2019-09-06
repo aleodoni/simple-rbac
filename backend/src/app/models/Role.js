@@ -1,5 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 
+import RoleResource from './RoleResource';
+
 class Role extends Model {
   static init(sequelize) {
     super.init(
@@ -18,8 +20,7 @@ class Role extends Model {
 
   static associate(models) {
     this.belongsToMany(models.Resource, {
-      through: 'resources_roles',
-      as: 'resources',
+      through: RoleResource,
       foreignKey: 'role_id',
     });
   }
