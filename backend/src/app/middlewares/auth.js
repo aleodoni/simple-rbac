@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 
 import authConfig from '../../config/auth';
+import RolesUtil from './RolesUtil';
 
 export default async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -17,6 +18,10 @@ export default async (req, res, next) => {
 
     req.userId = decoded.id;
     req.userRoles = decoded.roles;
+
+    const rolesUtil = new RolesUtil();
+    rolesUtil.init(decoded.roles);
+    rolesUtil.canAccess();
 
     return next();
   } catch (err) {
