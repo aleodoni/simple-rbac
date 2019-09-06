@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
 import Role from '../models/Role';
+import Resource from '../models/Resource';
 import SessionValidator from '../validators/SessionValidator';
 import authConfig from '../../config/auth';
 
@@ -22,6 +23,15 @@ class SessionController {
           model: Role,
           attributes: ['name', 'desc'],
           through: { attributes: [] },
+          include: [
+            {
+              model: Resource,
+              attributes: ['name', 'desc'],
+              through: {
+                attributes: ['can_add', 'can_edit', 'can_delete', 'can_view'],
+              },
+            },
+          ],
         },
       ],
     });
