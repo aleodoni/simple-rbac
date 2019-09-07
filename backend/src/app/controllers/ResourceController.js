@@ -1,8 +1,5 @@
-// import Localizacao from '../models/Localizacao';
-// import Pavimento from '../models/Pavimento';
 import ResourceValidator from '../validators/ResourceValidator';
 import Resource from '../models/Resource';
-// import Role from '../models/Role';
 
 class ResourceController {
   async index(req, res) {

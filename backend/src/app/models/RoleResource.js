@@ -4,6 +4,10 @@ class RoleResource extends Model {
   static init(sequelize) {
     super.init(
       {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+        },
         resource_id: Sequelize.INTEGER,
         role_id: Sequelize.INTEGER,
         can_add: Sequelize.BOOLEAN,
