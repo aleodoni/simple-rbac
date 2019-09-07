@@ -1,8 +1,6 @@
-// import Localizacao from '../models/Localizacao';
-// import Pavimento from '../models/Pavimento';
-// import RoleValidator from '../validators/RoleValidator';
-import Role from '../models/Role';
+import RoleValidator from '../validators/RoleValidator';
 import Resource from '../models/Resource';
+import Role from '../models/Role';
 
 class RoleController {
   async index(req, res) {
@@ -22,50 +20,51 @@ class RoleController {
     return res.json(roles);
   }
 
-  // async store(req, res) {
-  //   const validator = new LocalizacaoValidator();
+  async store(req, res) {
+    const validator = new RoleValidator();
 
-  //   if (!(await validator.validate(req))) {
-  //     return res.status(400).json({ error: validator.errors });
-  //   }
+    if (!(await validator.validate(req))) {
+      return res.status(400).json({ error: validator.errors });
+    }
 
-  //   const { id, nome } = await Localizacao.create(req.body);
+    const { id, name, desc } = await Role.create(req.body);
 
-  //   return res.json({
-  //     id,
-  //     nome,
-  //   });
-  // }
+    return res.json({
+      id,
+      name,
+      desc,
+    });
+  }
 
-  // async update(req, res) {
-  //   const validator = new LocalizacaoValidator();
+  async update(req, res) {
+    const validator = new RoleValidator();
 
-  //   if (!(await validator.validate(req))) {
-  //     return res.status(400).json({ error: validator.errors });
-  //   }
+    if (!(await validator.validate(req))) {
+      return res.status(400).json({ error: validator.errors });
+    }
 
-  //   const localizacao = await Localizacao.findByPk(req.params.id);
+    const role = await Role.findByPk(req.params.id);
 
-  //   if (!localizacao) {
-  //     return res.status(400).json({ error: 'Localização não encontrada' });
-  //   }
+    if (!role) {
+      return res.status(400).json({ error: 'Role not found' });
+    }
 
-  //   await localizacao.update(req.body);
+    const { id, name, desc } = await role.update(req.body);
 
-  //   return res.json(localizacao);
-  // }
+    return res.json({ id, name, desc });
+  }
 
-  // async delete(req, res) {
-  //   const localizacao = await Localizacao.findByPk(req.params.id);
+  async delete(req, res) {
+    const role = await Role.findByPk(req.params.id);
 
-  //   if (!localizacao) {
-  //     return res.status(400).json({ error: 'Localização não encontrada' });
-  //   }
+    if (!role) {
+      return res.status(400).json({ error: 'Role not found' });
+    }
 
-  //   await localizacao.destroy();
+    await role.destroy();
 
-  //   return res.send();
-  // }
+    return res.send();
+  }
 }
 
 export default new RoleController();
