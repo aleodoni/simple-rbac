@@ -1,9 +1,46 @@
 import { Op } from 'sequelize';
 
 import User from '../models/User';
+import Role from '../models/Role';
+// import Resource from '../models/Resource';
 import UserValidator from '../validators/UserValidator';
 
 class UserController {
+  async index(req, res) {
+    const user = await User.findByPk(req.userId, {
+      attributes: ['id', 'username', 'email'],
+      include: [
+        {
+          model: Role,
+          attributes: ['id', 'name', 'desc'],
+          through: {
+            attributes: [],
+          },
+          // through: {
+          //   attributes: ['id', 'name', 'desc'],
+          // },
+          // include: [
+          //   {
+          //     model: Resource,
+          //     attributes: ['id', 'name', 'desc'],
+          //     through: {
+          //       attributes: [
+          //         'id',
+          //         'can_add',
+          //         'can_edit',
+          //         'can_delete',
+          //         'can_view',
+          //       ],
+          //     },
+          //   },
+          // ],
+        },
+      ],
+    });
+
+    return res.json(user);
+  }
+
   async store(req, res) {
     const validator = new UserValidator();
 

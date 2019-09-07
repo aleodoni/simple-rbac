@@ -6,8 +6,9 @@ import User from '../app/models/User';
 import Role from '../app/models/Role';
 import Resource from '../app/models/Resource';
 import RoleResource from '../app/models/RoleResource';
+import UserRole from '../app/models/UserRole';
 
-const models = [User, Role, Resource, RoleResource];
+const models = [User, Role, Resource, RoleResource, UserRole];
 
 class Database {
   constructor() {
