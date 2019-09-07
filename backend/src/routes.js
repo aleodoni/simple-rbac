@@ -25,7 +25,13 @@ routes.use(authMiddleware);
 routes.put('/users/:id', UserController.update);
 
 routes.get('/roles', RoleController.index);
+routes.post('/roles', RoleController.store);
+routes.put('/roles/:id', RoleController.update);
+routes.delete('/roles/:id', RoleController.delete);
 
 routes.get('/resources', ResourceController.index);
+routes.post('/resources', ResourceController.store);
+routes.put('/resources/:id', ResourceController.update);
+routes.delete('/resources/:id', ResourceController.delete);
 
 export default routes;

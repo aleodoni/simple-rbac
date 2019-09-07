@@ -1,6 +1,6 @@
 // import Localizacao from '../models/Localizacao';
 // import Pavimento from '../models/Pavimento';
-// import RoleValidator from '../validators/RoleValidator';
+import ResourceValidator from '../validators/ResourceValidator';
 import Resource from '../models/Resource';
 // import Role from '../models/Role';
 
@@ -13,50 +13,51 @@ class ResourceController {
     return res.json(resources);
   }
 
-  // async store(req, res) {
-  //   const validator = new LocalizacaoValidator();
+  async store(req, res) {
+    const validator = new ResourceValidator();
 
-  //   if (!(await validator.validate(req))) {
-  //     return res.status(400).json({ error: validator.errors });
-  //   }
+    if (!(await validator.validate(req))) {
+      return res.status(400).json({ error: validator.errors });
+    }
 
-  //   const { id, nome } = await Localizacao.create(req.body);
+    const { id, name, desc } = await Resource.create(req.body);
 
-  //   return res.json({
-  //     id,
-  //     nome,
-  //   });
-  // }
+    return res.json({
+      id,
+      name,
+      desc,
+    });
+  }
 
-  // async update(req, res) {
-  //   const validator = new LocalizacaoValidator();
+  async update(req, res) {
+    const validator = new ResourceValidator();
 
-  //   if (!(await validator.validate(req))) {
-  //     return res.status(400).json({ error: validator.errors });
-  //   }
+    if (!(await validator.validate(req))) {
+      return res.status(400).json({ error: validator.errors });
+    }
 
-  //   const localizacao = await Localizacao.findByPk(req.params.id);
+    const resource = await Resource.findByPk(req.params.id);
 
-  //   if (!localizacao) {
-  //     return res.status(400).json({ error: 'Localização não encontrada' });
-  //   }
+    if (!resource) {
+      return res.status(400).json({ error: 'Resource not found' });
+    }
 
-  //   await localizacao.update(req.body);
+    const { name, desc } = await resource.update(req.body);
 
-  //   return res.json(localizacao);
-  // }
+    return res.json({ name, desc });
+  }
 
-  // async delete(req, res) {
-  //   const localizacao = await Localizacao.findByPk(req.params.id);
+  async delete(req, res) {
+    const resource = await Resource.findByPk(req.params.id);
 
-  //   if (!localizacao) {
-  //     return res.status(400).json({ error: 'Localização não encontrada' });
-  //   }
+    if (!resource) {
+      return res.status(400).json({ error: 'Resource not found' });
+    }
 
-  //   await localizacao.destroy();
+    await resource.destroy();
 
-  //   return res.send();
-  // }
+    return res.send();
+  }
 }
 
 export default new ResourceController();
