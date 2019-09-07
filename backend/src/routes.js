@@ -4,6 +4,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import RoleController from './app/controllers/RoleController';
 import ResourceController from './app/controllers/ResourceController';
+import RoleResourceController from './app/controllers/RoleResourceController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -33,5 +34,10 @@ routes.get('/resources', ResourceController.index);
 routes.post('/resources', ResourceController.store);
 routes.put('/resources/:id', ResourceController.update);
 routes.delete('/resources/:id', ResourceController.delete);
+
+// routes.get('/roles-resources', RoleResourceController.index);
+routes.post('/roles-resources', RoleResourceController.store);
+routes.put('/roles-resources/:id', RoleResourceController.update);
+routes.delete('/roles-resources/:id', RoleResourceController.delete);
 
 export default routes;
