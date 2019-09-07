@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class RoleResource extends Model {
+class UserRole extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -9,15 +9,11 @@ class RoleResource extends Model {
           autoIncrement: true,
           primaryKey: true,
         },
-        resource_id: Sequelize.INTEGER,
+        user_id: Sequelize.INTEGER,
         role_id: Sequelize.INTEGER,
-        can_add: Sequelize.BOOLEAN,
-        can_edit: Sequelize.BOOLEAN,
-        can_delete: Sequelize.BOOLEAN,
-        can_view: Sequelize.BOOLEAN,
       },
       {
-        tableName: 'resources_roles',
+        tableName: 'user_roles',
         sequelize,
       }
     );
@@ -26,4 +22,4 @@ class RoleResource extends Model {
   }
 }
 
-export default RoleResource;
+export default UserRole;
