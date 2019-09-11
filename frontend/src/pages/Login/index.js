@@ -59,14 +59,15 @@ export default class Login extends Component {
         error: false,
       });
     } catch (err) {
+      if (!err.response) {
+        this.setState({ errorMessage: err.message });
+      } else {
+        this.setState({ errorMessage: err.response.data.error });
+      }
       this.setState({
-        // username: '',
-        // password: '',
         loading: 0,
         error: true,
-        errorMessage: err.response.data.error,
       });
-      // console.log(err);
     }
   };
 
